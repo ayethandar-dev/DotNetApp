@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Scaffold App</title>
+
+    <!-- Basic CSS (you can replace later) -->
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <!-- jQuery (used for AJAX, modal, etc.) -->
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap (optional but very common) -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/Site.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <span class="navbar-brand text-black">Scaffold Management</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-3">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-4">
+        <hr />
+        <p>&copy; @DateTime.Now.Year - Scaffold App</p>
+    </footer>
+
+    <!-- Page specific scripts -->
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
