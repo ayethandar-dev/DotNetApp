@@ -4,5 +4,58 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+@model DotNetApp1.Viewmodels.HomeIndexViewModel
+
+<div class="form-group">
+    @Html.Label("Site")
+    @Html.DropDownListFor(
+        m => m.SelectedSiteId,
+        Model.SiteList,
+        "-- Select Site --",
+        new { @class = "form-control" }
+    )
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="text-danger mt-2">
+        @Model.Message
+    </div>
+}
+
+<div class="row mt-4">
+
+    <div class="col-md-6">
+        <div class="card p-3">
+            <a class="btn btn-primary"
+               href="@Url.Action("Index", "Ukebaraibo", new { siteId = Model.SelectedSiteId })">
+                受払簿へ
+            </a>
+        </div>
+    </div>
+
+    @if (Model.IsKanrisha)
+    {
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>申請管理</h5>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>利用申請</h5>
+            </div>
+        </div>
+    }
+    <div class="card" onclick="location.href='@Url.Action("Download", "Ukebaraibo")'">
+        <h3>受払簿Excelダウンロード</h3>
+        <p>選択中サイトのExcelを出力</p>
+    </div>
+
+
+</div>
+
 

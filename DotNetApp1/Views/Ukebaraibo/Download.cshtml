@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Download";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Excelダウンロード</h2>
+
+<a class="btn btn-primary"
+   href="@Url.Action("DownloadUkebaraiboExcel", "Ukebaraibo", new { siteId = "S001" })">
+    受払簿一覧
+</a>
+
+<a class="btn btn-secondary"
+   href="@Url.Action("DownloadCorporateMaisu", "Ukebaraibo", new { siteId = "S001" })">
+    会社別・区分別 枚数
+</a>
+
+

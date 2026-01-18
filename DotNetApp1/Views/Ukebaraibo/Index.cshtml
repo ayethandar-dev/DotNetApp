@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Ukebaraibo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model DotNetApp1.Viewmodels.UkebaraiboIndexViewModel
+
+<h2>受払簿</h2>
+
+<div class="form-group">
+    <label>現場</label>
+    @Html.DropDownListFor(
+        m => m.SelectedSiteId,
+        Model.SiteList,
+        "現場を選択してください",
+        new { @class = "form-control", id = "siteSelect" }
+    )
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>申請日</th>
+            <th>承認状態</th>
+            <th>協力会社</th>
+            <th>枚数</th>
+            <th>受領書</th>
+            <th>事務責任者</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var row in Model.UkebaraiboList)
+        {
+            <tr data-ukebaraibo-id="@row.UkebaraiboId"
+                data-site-id="@Model.SelectedSiteId">
+                <td>
+                    <input type="date"
+                           value="@row.ShinseiDate.ToString("yyyy-MM-dd")"
+                           class="form-control shinsei-date" />
+                </td>
+                <td>@row.ShoninStatus</td>
+                <td>
+                    <span class="company-name">@row.CorporateCompanyName</span>
+                    <button class="btn btn-sm btn-secondary select-company">選択</button>
+                </td>
+                <td>@row.Maisuu</td>
+                <td>
+                    <button class="btn btn-sm btn-primary btn-attach">添付</button>
+                    <button class="btn btn-sm btn-info btn-preview"
+                            @(row.ReceiptFlag == 1 ? "" : "disabled")>
+                        表示
+                    </button>
+                    <button class="btn btn-sm btn-danger btn-delete"
+                            @(row.ReceiptFlag == 1 ? "" : "disabled")>
+                        削除
+                    </button>
+                </td>
+                <td>@row.JimusekininshaName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<input type="file" id="pdfFileInput" accept="application/pdf" style="display:none;" />
+<div id="modalArea"></div>
+
+<script src="~/Scripts/Ukebaraibo.js"></script>
