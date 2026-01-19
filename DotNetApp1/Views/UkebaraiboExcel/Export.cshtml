@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Export";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/export.css" rel="stylesheet" />
+<script src="~/Scripts/export.js"></script>
+
+<h2>集計表出力</h2>
+
+@using (Html.BeginForm("ExportExcel", "UkebaraiboExcel", FormMethod.Post, new { id = "exportForm" }))
+{
+    <table class="export-table">
+        <tr>
+            <th>出力形式</th>
+            <td>集計表出力</td>
+        </tr>
+
+        <tr>
+            <th>対象現場<span class="required">*</span></th>
+            <td>
+                @Html.DropDownList(
+                    "siteId",
+                    (List<SelectListItem>)ViewBag.SiteList,
+                    "選択してください",
+                    new { id = "siteDropdown" }
+                )
+
+                <label class="checkbox-area">
+                    <input type="checkbox" id="allSiteChk" name="isAllSite" value="true" />
+                    全現場対象
+                </label>
+            </td>
+        </tr>
+
+        <tr>
+            <th>申請日<span class="required">*</span></th>
+            <td>
+                <input type="date" name="startDate" id="startDate" />
+                ～
+                <input type="date" name="endDate" id="endDate" />
+            </td>
+        </tr>
+    </table>
+
+    <div class="button-area">
+        <button type="button" class="btn btn-secondary" onclick="history.back()">戻る</button>
+        <button type="submit" class="btn btn-primary">出力</button>
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="error-message">
+        @Html.ValidationSummary(false)
+    </div>
+}
+
+

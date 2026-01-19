@@ -1,0 +1,41 @@
+﻿.export-table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    .export-table th {
+        width: 180px;
+        background: #f2f2f2;
+        padding: 8px;
+        border: 1px solid #ccc;
+        text-align: left;
+    }
+
+    .export-table td {
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+.checkbox-area {
+    margin-left: 15px;
+}
+
+.required {
+    color: red;
+    margin-left: 5px;
+}
+
+.button-area {
+    margin-top: 20px;
+}
+
+    .button-area button {
+        margin-right: 10px;
+    }
+
+.error-message {
+    margin-top: 15px;
+    color: red;
+}
