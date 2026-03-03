@@ -93,3 +93,37 @@ $(function () {
 
 
 });
+
+function downloadExcel() {
+    document.getElementById("loading").style.display = "block";
+
+    fetch("/Ukebaraibo/ExportExcel", {
+        method: "POST"
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Download failed");
+            }
+            return response.blob(); // 👈 VERY IMPORTANT
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "CorporateMaisu.xlsx"; // filename (can be overwritten by server header)
+            document.body.appendChild(a);
+            a.click();
+
+            window.URL.revokeObjectURL(url);
+            a.remove();
+
+            document.getElementById("loading").style.display = "none";
+        })
+        .catch(error => {
+            alert("エクセル出力に失敗しました");
+            console.error(error);
+            document.getElementById("loading").style.display = "none";
+        });
+}
+
