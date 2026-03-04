@@ -20,7 +20,9 @@ z-index:9999;">
 </div>
 
 <button onclick="startDownload()">出力</button>
-
+<div id="loading" style="display:none;">
+    ダウンロード中です…
+</div>
 <a class="btn btn-primary"
    href="@Url.Action("DownloadUkebaraiboExcel", "Ukebaraibo", new { siteId = "S001" })">
     受払簿一覧

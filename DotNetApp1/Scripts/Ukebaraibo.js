@@ -127,3 +127,40 @@ function downloadExcel() {
         });
 }
 
+function downloadExcelAjax() {
+    $("#loading").show();
+
+    $.ajax({
+        url: "/Ukebaraibo/ExportExcel",
+        type: "POST",
+        data: {
+            siteId: $("#SiteId").val(),
+            startDate: $("#StartDate").val(),
+            endDate: $("#EndDate").val()
+        },
+        xhrFields: {
+            responseType: "blob"   // 👈 VERY IMPORTANT
+        },
+        success: function (blob, status, xhr) {
+            const filename = "CorporateMaisu.xlsx";
+
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = filename;
+
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+
+            $("#loading").hide();
+        },
+        error: function () {
+            alert("Excel download failed");
+            $("#loading").hide();
+        }
+    });
+}
+
+
