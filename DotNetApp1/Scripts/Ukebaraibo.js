@@ -128,6 +128,37 @@ function downloadExcel() {
 }
 
 function downloadExcelAjax() {
+    const siteId = document.getElementById("SiteId").value;
+    const allSites = document.getElementById("AllSitesChk").checked;
+    const startDateStr = document.getElementById("StartDate").value;
+    const endDateStr = document.getElementById("EndDate").value;
+
+    if (!allSites && !siteId) {
+        alert("現場を選択してください（または全現場にチェック）");
+        return;
+    }
+
+    if (!startDateStr || !endDateStr) {
+        alert("開始日と終了日を入力してください");
+        return;
+    }
+
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+
+    if (startDate > endDate) {
+        alert("開始日は終了日より前の日付を指定してください");
+        return;
+    }
+
+    // ✅ 1年以内チェック
+    const oneYearLater = new Date(startDate)
+    oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+
+    if (endDate > oneYearLater) {
+        alert("期間は最大1年以内で指定してください");
+        return;
+    }
     $("#loading").show();
 
     $.ajax({
